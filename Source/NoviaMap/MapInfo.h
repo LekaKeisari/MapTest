@@ -9,6 +9,8 @@
 /**
  * 
  */
+
+//Struct for .pgw file data
 USTRUCT(BlueprintType)
 struct NOVIAMAP_API FMapInfo
 {

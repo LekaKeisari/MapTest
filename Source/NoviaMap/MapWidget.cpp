@@ -1,11 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
+//NOTE: Most of the actual logic is handled by UE and blueprints because of limited time. Blueprints are a LOT faster to implement than C++ in UE.
+
 #include "MapWidget.h"
 #include "IImageWrapper.h"
 #include "IImageWrapperModule.h"
 #include "Misc/FileHelper.h"
 #include "Misc/DefaultValueHelper.h"
 
+//Gets all the .png-files from predefined folder and creates an array of Texture2Ds. This could later be changed to fetch files from URL instead.
 TArray<UTexture2D*> UMapWidget::CreateTextureList()
 {
 	TArray<FString> ImageFileNames;
@@ -26,6 +29,7 @@ TArray<UTexture2D*> UMapWidget::CreateTextureList()
 	return textures;
 }
 
+// Gets all .pgw-files from a folder and adds data to an array of structs. This could later be changed to fetch files from URL instead. Unneccesary repetition but this was done very quickly.
 TArray<FMapInfo> UMapWidget::CreateMapInfoList()
 {
 	TArray<FString> DataFileNames;
@@ -61,6 +65,7 @@ TArray<FMapInfo> UMapWidget::CreateMapInfoList()
 	return mapInfoArray;
 }
 
+//Tried using the textures and data via this function in a widget blueprint but something went wrong with the textures. Could be that I didn't name the textures when creating them. Lists get populated but textures are unusable.
 void UMapWidget::InitializeData()
 {
 	MapImages = CreateTextureList();
@@ -73,6 +78,7 @@ void UMapWidget::InitializeData()
 	//}
 }
 
+//Creates a UE-compatible texture from .png
 UTexture2D* UMapWidget::LoadTexture2DFromFile(const FString& FilePath, bool& IsValid, int32& Width, int32& Height)
 {
 	IsValid = false;
